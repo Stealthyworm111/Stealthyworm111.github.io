@@ -55,13 +55,6 @@ img[alt="dog icon"]
   bottom: 150px;
 }
 
-img[alt="bird icon"]
-{
-  position: absolute;
-  left:250px;
-  bottom:50px;
-  
-}
 nav
 {
   background-color: rgba(0,250,0,.90);
@@ -69,6 +62,20 @@ nav
   top: 0;
   padding: 5px;
   font-size:20px;
+}
+#positionMe
+{
+  position: absolute;
+  left:250px;
+  bottom:50px;
+  
+}
+#orangediv
+{
+  background-color:orange;
+  position: relative;
+  z-index:-1;
+  
 }
 
 /* --- pre-existing css --- */
