@@ -233,7 +233,7 @@ function totalOut()
   
   function clearTableData()
   {
-    for(let i = 1;i<18;i++)
+    for(let i = 1;i<19;i++)
       {
          
            elem[i].children[2].innerHTML = "-";
@@ -241,4 +241,5 @@ function totalOut()
         
         
       }
+    elem[19].children[1].innerHTML = "-";
   }
