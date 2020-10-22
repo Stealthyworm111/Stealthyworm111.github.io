@@ -134,6 +134,11 @@ function displayAbout() {
 function displayPenaltyInfo() {
 	window.location.href = "clubPenaltyInfo.html";
 }
+//goes back from "about"
+function goBack(){
+	window.location.href = "clubDistanceList.html"
+}
+
 
 // ----- Functions (clubDistanceEntry.html) -----
 
