@@ -118,6 +118,7 @@ function undoLastShot() {
 		localStorage.setItem("clubs", str);
 		// return to list screen
 		window.location.href = "clubDistanceList.html"; 
+	}
 
 	
 }
