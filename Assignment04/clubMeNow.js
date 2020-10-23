@@ -98,7 +98,7 @@ function undoLastShot(shotDistance=0) {
 	if(shotDistance>0)
 		// update average
 			currentAverage = clubs[clubRow][3];
-		currentNumShots = clubs[clubRow][6];
+		currentNumShots = clubs[clubRow][3];
 		newAverage = (currentAverage * currentNumShots + shotDistance) 
 			/ (currentNumShots + 1);
 		clubs[clubRow][3] = newAverage;
