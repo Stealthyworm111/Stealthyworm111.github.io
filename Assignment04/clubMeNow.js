@@ -96,25 +96,25 @@ function undoLastShot(shotDistance=0) {
        	
 {
 		// save current clubs array for "Undo" functionality
-		let str = JSON.stringify(localStorage.get("clubsUndo"));
+		let str = JSON.stringify(localStorage.getItem("clubsUndo"));
 		localStorage.setItem("clubsUndo", str);
 		// update average
-		currentAverage = clubs[clubRow][3];
-		currentNumShots = clubs[clubRow][6];
+		currentAverage = clubsUndo[clubRow][3];
+		currentNumShots = clubsUndo[clubRow][6];
 		newAverage = (currentAverage * currentNumShots + shotDistance) 
 			/ (currentNumShots + 1);
-		clubs[clubRow][3] = newAverage;
+		clubsUndo[clubRow][3] = newAverage;
 		// update shot count
-		clubs[clubRow][6] += 1;
+		clubsUndo[clubRow][6] += 1;
 		// update min
-		if (clubs[clubRow][4]==0 
-			|| shotDistance < clubs[clubRow][4]) clubs[clubRow][4] = shotDistance;
+		if (clubsUndo[clubRow][4]==0 
+			|| shotDistance < clubsUndo[clubRow][4]) clubsUndo[clubRow][4] = shotDistance;
 		// update max
-		if (clubs[clubRow][5]==0 
-			|| shotDistance > clubs[clubRow][5]) clubs[clubRow][5] = shotDistance;
+		if (clubsUndo[clubRow][5]==0 
+			|| shotDistance > clubsUndo[clubRow][5]) clubsUndo[clubRow][5] = shotDistance;
 		// save updated stats in local storage
-		str = JSON.stringify(clubs);
-		localStorage.setItem("clubs", str);
+		str = JSON.stringify(clubsUndo);
+		localStorage.setItem("clubsUndo", str);
 		// return to list screen
 		window.location.href = "clubDistanceList.html"; 
 	}
