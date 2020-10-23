@@ -237,4 +237,3 @@ function updateStats(shotDistance=0) {
 		window.location.href = "clubDistanceList.html"; 
 	}
 }
-}
