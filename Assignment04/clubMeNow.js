@@ -93,9 +93,8 @@ function displayClubDistanceEntryForm(c) {
 
 // replace the current "clubs" array with the previous one
 function undoLastShot(shotDistance=0) {
-       	if(shotDistance==0)
-		shotDistance = parseInt(document.getElementById('clubVal').value);
-	if(parseInt(shotDistance) > 0) {
+       	
+{
 		// save current clubs array for "Undo" functionality
 		let str = JSON.stringify(clubsUndo);
 		localStorage.setItem("clubs", str);
