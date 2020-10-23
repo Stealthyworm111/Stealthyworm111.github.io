@@ -96,8 +96,8 @@ function undoLastShot(shotDistance=0) {
        	
 {
 		// save current clubs array for "Undo" functionality
-		let str = JSON.stringify(clubsUndo);
-		localStorage.setItem("clubs", str);
+		let str = JSON.stringify(localStorage.get("clubsUndo"));
+		localStorage.setItem("clubsUndo", str);
 		// update average
 		currentAverage = clubs[clubRow][3];
 		currentNumShots = clubs[clubRow][6];
