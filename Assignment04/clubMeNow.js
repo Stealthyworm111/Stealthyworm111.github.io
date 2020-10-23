@@ -30,17 +30,16 @@ clubDistanceEntry.html
 // initialize "clubs" array
 function loadClubDistances() {
 	let clubs;
-	let clubs1;
+	
 	// if "clubs" array already exists, load it from local storage
 	if (localStorage.getItem("clubs")) {
 		clubs = JSON.parse(localStorage.getItem("clubs"));
-		clubs1 = clubs;
+		
 	}
 	// otherwise create new "clubs" array, using resetAllClubs()
 	else {
 		clubs = resetAllClubDistances();
 		clubs = JSON.parse(localStorage.getItem("clubs"));
-		clubs1= clubs;
 	}
 	return clubs;
 }
@@ -94,12 +93,29 @@ function displayClubDistanceEntryForm(c) {
 
 // replace the current "clubs" array with the previous one
 function undoLastShot() {
-       clubs=clubs1;
-	// store the array in local storage
-	let str = JSON.stringify(clubs);
-	localStorage.setItem("clubs", str);
-	// and refresh screen
-	window.location.href = "clubDistanceList.html"; 
+       function undoLastShot() {
+       localStorage.getItem("clubsUndo");
+		// update average
+		currentAverage = clubsUndo[clubRow][3];
+		currentNumShots = clubsUndo[clubRow][6];
+		newAverage = (currentAverage * currentNumShots + shotDistance) 
+			/ (currentNumShots + 1);
+		clubsUndo[clubRow][3] = newAverage;
+		// update shot count
+		clubsUndo[clubRow][6] += 1;
+		// update min
+		if (clubsUndo[clubRow][4]==0 
+			|| shotDistance < clubsUndo[clubRow][4]) clubsUndo[clubRow][4] = shotDistance;
+		// update max
+		if (clubsUndo[clubRow][5]==0 
+			|| shotDistance > clubsUndo[clubRow][5]) clubsUndo[clubRow][5] = shotDistance;
+		// save updated stats in local storage
+		str = JSON.stringify(clubs);
+		localStorage.setItem("clubs", str);
+		// return to list screen
+		window.location.href = "clubDistanceList.html"; 
+	
+}
 	
 }
 
