@@ -30,14 +30,17 @@ clubDistanceEntry.html
 // initialize "clubs" array
 function loadClubDistances() {
 	let clubs;
+	let clubs1;
 	// if "clubs" array already exists, load it from local storage
 	if (localStorage.getItem("clubs")) {
 		clubs = JSON.parse(localStorage.getItem("clubs"));
+		clubs1 = clubs;
 	}
 	// otherwise create new "clubs" array, using resetAllClubs()
 	else {
 		clubs = resetAllClubDistances();
 		clubs = JSON.parse(localStorage.getItem("clubs"));
+		clubs1= clubs;
 	}
 	return clubs;
 }
@@ -91,7 +94,13 @@ function displayClubDistanceEntryForm(c) {
 
 // replace the current "clubs" array with the previous one
 function undoLastShot() {
-        // your code here !
+       clubs=clubs1;
+	// store the array in local storage
+	let str = JSON.stringify(clubs);
+	localStorage.setItem("clubs", str);
+	// and refresh screen
+	window.location.href = "clubDistanceList.html"; 
+	
 }
 
 // create a new (default) "clubs" array
