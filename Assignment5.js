@@ -128,9 +128,9 @@ newConfirmedOver1000.reverse();
       chartData.data.datasets[2].backgroundColor 
         = "rgba(0,125,125,0.4)"; // blue
       chartData.data.datasets[0].label  
-        = 'New Cases';
+        = 'Total Cases';
       chartData.data.datasets[1].label  
-        = 'New Deaths';
+        = 'Total Deaths';
       chartData.data.datasets[2].label  
         = 'Total Cases per 100,000';
       chartData.data.labels  
@@ -138,10 +138,10 @@ newConfirmedOver1000.reverse();
       chartData.data.datasets[0].data  
         =
       newConfirmedOver1000.map( 
-          (x) => x.NewConfirmed );
+          (x) => x.TotalConfirmed );
       chartData.data.datasets[1].data       =
         newConfirmedOver1000.map( 
-          (x) => x.NewDeaths );
+          (x) => x.TotalDeaths );
       chartData.data.datasets[2].data       =
         newConfirmedOver1000.map( 
           (x) => x.TotalConfirmedPer100000);
