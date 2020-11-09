@@ -9,7 +9,19 @@ var covidJsObj;
 var newConfirmedOver1000;
 
 // AJAX variable
+
+
+
 var xhttp;
+function loadData(){
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatecahge = function() {
+    if(this.readystate == 4 && this.status == 200){
+      document.getElementbyId("Tracking").innerHTML = 
+        localStorage.setItem("Tracking", this.responsiveText);
+  }
+  }
+  };
 
 // Chart.js variables
 
@@ -18,7 +30,7 @@ var xhttp;
 var ctx = 
   document.getElementById('myChart').getContext('2d');
 // "chartData" includes the graph AND the formatting, including title, legend, axes, etc.
-var chartData = {
+var chartData ={
   type: 'bar',
   data: {
     labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
@@ -27,8 +39,12 @@ var chartData = {
       data: [12, 19, 3, 17, 6, 3, 7],
       backgroundColor: "rgba(255,0,0,0.4)"
     }, {
+      label: 'peaches',
+       data:[1,3,5,8,99,12],
+       backgroundColor: "rgb(0, 125, 125,0.4)"
+    },{
       label: 'oranges',
-      data: [2, 29, 5, 5, 2, 3, 10],
+      data:[2, 29, 5, 5, 2, 3, 10],
       backgroundColor: "rgba(255,140,0,0.4)"
     }]
   },
@@ -43,11 +59,17 @@ var chartData = {
           // logarithmic scale ignores maxTicksLimit
           maxTicksLimit: 11,
           callback: function(label, index, labels) {
-            return (   label/1000 > 9 
-                    || label/1000 == 1 
-                    || label/1000 == 0.1 
-                    || label/1000 == 0.01) 
-              ? label/1000+'k' :  "";
+            
+            return (   label/1000 > 1000000000
+                    || label/1000 == 100000
+                    || label/1000 == 10000 
+                    || label/1000 == 100
+                    || label/1000 == 10 
+                    || label/1000 == 1
+                    || label/1000 == .1 
+                    || label/1000 == .01) 
+              ? label/1000 +'k' :  "";
+            
           }
         },
         scaleLabel: {
@@ -69,8 +91,7 @@ var chartData = {
 
 // code below modified from: 
 // https://www.w3schools.com/js/js_ajax_intro.asp
-
-function loadContent() {
+function loadContent(){
   xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 
@@ -85,44 +106,65 @@ function loadContent() {
           newConfirmedOver1000.push({ 
             "Slug": c.Slug, 
             "NewConfirmed": c.NewConfirmed, 
-            "NewDeaths": c.NewDeaths
+            "NewDeaths": c.NewDeaths,
+			"TotalConfirmed": c.TotalConfirmed,
+			"TotalDeaths": c.TotalDeaths,
+		  "Population": populations[c.Slug],
+		  "TotalConfirmedPer100000": 100000 * c.TotalConfirmed / populations[c.Slug]
+          
+			
           });
         }
       }
-
+newConfirmedOver1000 =  _.sortBy(newConfirmedOver1000,"TotalConfirmedPer100000");
+newConfirmedOver1000.reverse();
+       
       chartData.data.datasets[0].backgroundColor 
         = "rgba(100,100,100,0.4)"; // gray
       chartData.data.datasets[1].backgroundColor 
         = "rgba(255,0,0,0.4)"; // red
+      chartData.data.datasets[2].backgroundColor 
+        = "rgba(0,125,125,0.4)"; // blue
       chartData.data.datasets[0].label  
-        = 'new cases';
+        = 'New Cases';
       chartData.data.datasets[1].label  
-        = 'new deaths';
+        = 'New Deaths';
+      chartData.data.datasets[2].label  
+        = 'Total Cases per 100,000';
       chartData.data.labels  
         = newConfirmedOver1000.map( (x) => x.Slug );
       chartData.data.datasets[0].data  
-        = newConfirmedOver1000.map( 
+        =
+      newConfirmedOver1000.map( 
           (x) => x.NewConfirmed );
-      chartData.data.datasets[1].data  
-        = newConfirmedOver1000.map( 
+      chartData.data.datasets[1].data       =
+        newConfirmedOver1000.map( 
           (x) => x.NewDeaths );
+      chartData.data.datasets[2].data       =
+        newConfirmedOver1000.map( 
+          (x) => x.TotalConfirmedPer100000);
       chartData.options.title.text 
         = "Covid 19 Hotspots (" + 
         dayjs().format("YYYY-MM-DD") + ")" ;
-      myChart = new Chart(ctx, chartData); 
-
-    } // end if
-    
-  }; // end xhttp.onreadystatechange = function()
-  
+     
+     
+      myChart = new Chart(ctx, chartData);
+    }
+  }
+ 
   xhttp.open("GET", URL, true);
   xhttp.send();
+    
+    
+
+     // end xhttp.onreadystatechange = function()
   
+
 } // end function loadContent() 
 
 // data from: https://en.wikipedia.org/wiki/List_of_countries_and_dependencies_by_population
 var populations = {
-  'china' : 1405137440,
+'china' : 1405137440,
 'india' : 1369152434,
 'united-states' : 330578332,
 'indonesia' : 269603400,
