@@ -118,6 +118,8 @@ function loadContent(){
       }
 newConfirmedOver1000 =  _.sortBy(newConfirmedOver1000,"TotalConfirmedPer100000");
 newConfirmedOver1000.reverse();
+      newConfirmedOver1000 = newConfirmedOver1000.filter((x) => x.TotalDeaths > 50000);
+      
        
       chartData.data.datasets[0].backgroundColor 
         = "rgba(100,100,100,0.4)"; // gray
