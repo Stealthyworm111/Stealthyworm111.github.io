@@ -1,6 +1,6 @@
 
 // --- global variables ---
-if(localStorage.getItem("loansArray")=="undefined")
+if(localStorage.getItem("loansArray")=="null")
   {
     var loans = [
   { loan_year: 2020, loan_amount: 10000.00, loan_int_rate: 0.0453 },
