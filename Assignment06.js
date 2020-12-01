@@ -75,6 +75,7 @@ function toComma(value) {
 $(document).ready(function(){
   //The table runs off of if the user updates the value then it runs the fucntions 
   //the amount is validated based off whether of not it is a number
+  // local Storage works by saving it everytime someone "completes the table" (when they enter a number into the fifth loan amount box)
 $("#loan_year01").click(function(){
   updateLoansArray();
  });
